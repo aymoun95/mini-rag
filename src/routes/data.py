@@ -26,7 +26,7 @@ async def upload_data(
             status_code=status.HTTP_400_BAD_REQUEST, content={"signal": result_signal}
         )
 
-    file_path = data_controller.generate_unique_filename(
+    file_path, file_id = data_controller.generate_unique_filename(
         orig_file_name=file.filename, project_id=project_id
     )
 
@@ -42,4 +42,4 @@ async def upload_data(
             content={"signal": ResponseSignal.FILE_UPLOAD_FAILED.value},
         )
 
-    return JSONResponse(content={"signal": result_signal})
+    return JSONResponse(content={"signal": result_signal, "file_id": file_id})
